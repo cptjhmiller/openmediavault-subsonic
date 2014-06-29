@@ -23,7 +23,7 @@ require_once "openmediavault/error.inc";
 require_once "openmediavault/util.inc";
 require_once "openmediavault/initscript.inc";
 
-class OMVModuleSabnzbd extends OMVModuleServiceAbstract
+class OMVModuleSubsonic extends OMVModuleServiceAbstract
     implements OMVINotifyListener, OMVIModuleServiceStatus {
 
     public function getName() {

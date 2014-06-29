@@ -26,7 +26,7 @@ require_once "openmediavault/notify.inc";
 require_once("openmediavault/product.inc");
 require_once("openmediavault/system.inc");
 
-class OMVRpcServiceSabnzbd extends OMVRpcServiceAbstract {
+class OMVRpcServiceSubsonic extends OMVRpcServiceAbstract {
 
     public function getName() {
         return "Subsonic";
@@ -71,6 +71,7 @@ class OMVRpcServiceSabnzbd extends OMVRpcServiceAbstract {
         $this->registerMethod("getSettings");
         $this->registerMethod("setSettings");
         $this->registerMethod('doUpdateSUB');
+        $this->registerMethod('doUpdateSUBB');
 
         $this->registerMethod('doBackup');
         $this->registerMethod('doRestore');
@@ -90,6 +91,7 @@ class OMVRpcServiceSabnzbd extends OMVRpcServiceAbstract {
         $object["enable"]  = boolval($object["enable"]);
         $object["showtab"] = boolval($object["showtab"]);
         $object["update"]  = boolval($object["update"]);
+        $object["bupdate"] = boolval($object["bupdate"]);
         $object["port"]    = $output[0];
 
         return $object;
@@ -106,7 +108,7 @@ class OMVRpcServiceSabnzbd extends OMVRpcServiceAbstract {
                 "enable"    : { "type" : "boolean" },
                 "showtab"   : { "type" : "boolean" },
                 "update"    : { "type" : "boolean" },
-                "bupdate"    : { "type" : "boolean" },
+                "bupdate"   : { "type" : "boolean" },
                 "port"      : { "type" : "integer" },
                 "mntentref" : { ' . $GLOBALS['OMV_JSONSCHEMA_UUID_NONE'] . ' },
                 "path"      : { "type" : "string", "optional" : true }
@@ -132,6 +134,7 @@ class OMVRpcServiceSabnzbd extends OMVRpcServiceAbstract {
             "enable"    => array_boolval($params, "enable"),
             "showtab"   => array_boolval($params, "showtab"),
             "update"    => array_boolval($params, "update"),
+            "bupdate"   => array_boolval($params, "bupdate"),
             "port"      => $params["port"],
             "mntentref" => $params["mntentref"],
             "path"      => $params["path"],
@@ -296,4 +299,3 @@ class OMVRpcServiceSabnzbd extends OMVRpcServiceAbstract {
 $rpcServiceMgr = &OMVRpcServiceMgr::getInstance();
 $rpcServiceMgr->registerService(new OMVRpcServiceSubsonic());
 
-?>

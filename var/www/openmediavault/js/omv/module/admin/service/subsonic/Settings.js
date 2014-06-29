@@ -26,7 +26,8 @@ Ext.define("OMV.module.admin.service.subsonic.Settings", {
     uses   : [
         "OMV.data.Model",
         "OMV.data.Store",
-        "OMV.module.admin.service.subsonic.UpdateSUB"
+        "OMV.module.admin.service.subsonic.UpdateSUB",
+        "OMV.module.admin.service.subsonic.UpdateSUBB"
     ],
 
     initComponent : function () {
@@ -59,7 +60,7 @@ Ext.define("OMV.module.admin.service.subsonic.Settings", {
         ptype        : "linkedfields",
         correlations : [{
             name       : [
-                "updatesab",
+                "updatesub",
             ],
             conditions : [
                 { name  : "update", value : false }
@@ -67,7 +68,7 @@ Ext.define("OMV.module.admin.service.subsonic.Settings", {
             properties : "!show"
         },{
             name       : [
-                "updatesabb",
+                "updatesubb",
             ],
             conditions : [
                 { name  : "bupdate", value : false }
@@ -133,6 +134,10 @@ Ext.define("OMV.module.admin.service.subsonic.Settings", {
                     window.open(link, "_blank");
                 },
                 margin : "0 0 5 0"
+            
+            },{
+                border: false,
+                html: "<br />"
             },{
                 xtype   : "checkbox",
                 name    : "update"
@@ -174,7 +179,7 @@ Ext.define("OMV.module.admin.service.subsonic.Settings", {
             },{
                 border: false,
                 html: "<br />"
-            }],{
+            },{
                 xtype   : "checkbox",
                 name    : "bupdate"
             },{
