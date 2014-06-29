@@ -84,11 +84,6 @@ Ext.define("OMV.module.admin.service.subsonic.Settings", {
                 "bupdate",
             ],
             properties : "!show"
-        },{
-            name       : [
-                "port",
-            ],
-            properties : "!show"
         }]
     }],
 
@@ -117,7 +112,7 @@ Ext.define("OMV.module.admin.service.subsonic.Settings", {
                 name: "port",
                 fieldLabel: _("Port"),
                 vtype: "port",
-                minValue: 1,
+                minValue: 1024,
                 maxValue: 65535,
                 allowDecimals: false,
                 allowBlank: false,
@@ -139,6 +134,15 @@ Ext.define("OMV.module.admin.service.subsonic.Settings", {
                 border: false,
                 html: "<br />"
             },{
+                xtype       : "textfield",
+                name        : "msg",
+                fieldLabel  : _("Version info"),
+                submitValue : false,
+                readOnly    : true
+            },{
+                border: false,
+                html: "<br />"
+            },{
                 xtype   : "checkbox",
                 name    : "update"
             },{
@@ -155,7 +159,6 @@ Ext.define("OMV.module.admin.service.subsonic.Settings", {
                         fn      : function(answer) {
                             if (answer !== "yes")
                                return;
-                            // throw new OMVException(OMVErrorMsg::E_MISC_FAILURE, "You CAN NOT use this branch with this repository.");
 
                             OMV.Rpc.request({
                                 scope   : me,

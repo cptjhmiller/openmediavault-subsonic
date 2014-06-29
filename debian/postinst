@@ -26,26 +26,28 @@ case "$1" in
 
         STABLE=`wget -q http://www.subsonic.org/pages/download.jsp -O - | \grep subsonic-[0-9].[0-9].deb | \sed 's/.*href=\"\(.*\)\".*/\1/' | sed 's/^[^-]*=//' | sed 's/\(^subsonic\-\)\(.*\)\(\.deb\)/\2/'`
 		#BETA=`wget -q http://www.subsonic.org/pages/download.jsp -O - | \grep subsonic-[0-9].[0-9].beta[0-9].deb | \sed 's/.*href=\"\(.*\)\".*/\1/' | sed 's/^[^-]*=//' | sed 's/\(^subsonic\-\)\(.*\)\(\.deb\)/\2/'`
-    	
-        if [ ! -d /var/subsonic ]; then        
+
+        if [ ! -d /var/subsonic ]; then
             wget http://sourceforge.net/projects/subsonic/files/subsonic/${STABLE}/subsonic-${STABLE}.deb -O /tmp/subsonic-${STABLE}.deb
             dpkg -i /tmp/subsonic-${STABLE}.deb
             rm -Rf /tmp/subsonic-${STABLE}.deb
         fi
-	
+
         if ! omv_config_exists "/config/services/subsonic"; then
             echo "Initial configuration."
             object="<enable>0</enable>"
             object="${object}<showtab>0</showtab>"
             object="${object}<update>0</update>"
             object="${object}<bupdate>0</bupdate>"
+            object="${object}<port>4040</port>"
+            object="${object}<msg>None yet</msg>"
             omv_config_add_element "/config/services" "subsonic" "${object}" true
         fi
 
         #chown -R sabnzbd:users /opt/SABnzbd
         #chown -R sabnzbd:users /etc/init.d/sabnzbd
         #chmod 775 /opt/SABnzbd -R
-        
+
         omv_install_fixperms
 
         # Activate package triggers. These triggers are only set during the

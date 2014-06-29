@@ -92,7 +92,7 @@ class OMVRpcServiceSubsonic extends OMVRpcServiceAbstract {
         $object["showtab"] = boolval($object["showtab"]);
         $object["update"]  = boolval($object["update"]);
         $object["bupdate"] = boolval($object["bupdate"]);
-        $object["port"]    = $output[0];
+        $object['port']    = intval($object['port']);
 
         return $object;
     }
@@ -109,8 +109,9 @@ class OMVRpcServiceSubsonic extends OMVRpcServiceAbstract {
                 "showtab"   : { "type" : "boolean" },
                 "update"    : { "type" : "boolean" },
                 "bupdate"   : { "type" : "boolean" },
-                "port"      : { "type" : "integer" },
+                "port"      : { "type" : "integer","minimum":1024,"maximum":65535},
                 "mntentref" : { ' . $GLOBALS['OMV_JSONSCHEMA_UUID_NONE'] . ' },
+                "msg"       : { "type" : "string", "optional" : true },
                 "path"      : { "type" : "string", "optional" : true }
             }
         }');
@@ -136,6 +137,7 @@ class OMVRpcServiceSubsonic extends OMVRpcServiceAbstract {
             "update"    => array_boolval($params, "update"),
             "bupdate"   => array_boolval($params, "bupdate"),
             "port"      => $params["port"],
+            "msg"      => $params["msg"],
             "mntentref" => $params["mntentref"],
             "path"      => $params["path"],
         );
